@@ -1,23 +1,43 @@
-<?
+<?php
+
+
 
 // separating url into its own local variable
 extract($_GET);
 
-// setting up curl
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// get the raw html
+$ret = file_get_contents($url);
 
-// getting raw html
-$ret = curl_exec($ch);
-curl_close($ch);
 
-// connection fail
-if($ret === false)
-{
-    echo "Could not fetch data from Shiksha.com";
-    exit;
-}
+// remove the new lines so that regex doesn't break halfway
+preg_replace('/\n/','', $ret);
 
-preg_match('')
+// initialize the array
+$college = array();
+
+// find and store the names
+preg_match_all('/<h2 class="tuple-clg-heading"><a href="(?:.*?)">(.*?)<\/a>/', $ret, $matches);
+$college["cname"] = $matches[1];
+
+
+
+?>
+
+
+
+<html>
+    <head>
+        <title>Scraped Data</title>
+    </head>
+    <body>
+        <?php
+        
+        //echo "The source code of the page is:<br>".htmlspecialchars($ret);
+        //print_r("<pre>");
+        //print_r($matches);
+        //print_r("<pre>");
+        //print_r($college["cname"]);
+        
+        ?>
+    </body>
+</html>
