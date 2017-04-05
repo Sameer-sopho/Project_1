@@ -1,7 +1,6 @@
 <?php
 
 
-
 // separating url into its own local variable
 extract($_GET);
 
@@ -26,7 +25,7 @@ $college["address"] = $matchb[1];
 // find the facilities code block of all colleges
 preg_match_all('/<\/p><\/h2>(.*?)<\/ul>/s', $ret, $matchc);
 
-// separate and store the facilities of each individual college 
+// separate and store the facilities of each individual college
 for( $i=0 ; $i < count($matchc[1]) ; $i++ )
 {
     if(preg_match_all('/<h3>(.*?)<\/h3>/', $matchc[1][$i], $matchca))
@@ -40,8 +39,6 @@ for( $i=0 ; $i < count($matchc[1]) ; $i++ )
     
     
 }
-
-
 
 // find the reviews code block of all colleges
 preg_match_all('/<section class="tpl-curse-dtls">(.*?)<p class="clr">/s', $ret, $matchd);
@@ -66,6 +63,44 @@ for( $i=0 ; $i < count($matchd[1]) ; $i++ )
 
 
 
+$servername = "localhost";
+$username = "sameerjathavedan";
+$password = "3vXt73bGW7mEcGnI";
+$dbname = "Project_1";
+
+// Create connection
+$mysqli = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+
+
+for( $i=0 ; $i < count($college["name"]) ; $i++ )
+{
+    $name = $mysqli->escape_string($college["name"][$i]);
+    $address = $mysqli->escape_string($college["address"][$i]);
+    $facilities = $mysqli->escape_string($college["facilities"][$i]);
+    $reviews = intval($college["reviews"][$i]);
+    
+    $sql = "INSERT IGNORE INTO college (name, address, facilities, reviews) VALUES ('$name', '$address', '$facilities', '$reviews')";
+    
+    $mysqli->query($sql) or die($mysqli->error);
+}
+
+
+
+
+
+
+
+
+$num = count($college["name"]);
+
+
+
+
 ?>
 
 
@@ -79,6 +114,7 @@ for( $i=0 ; $i < count($matchd[1]) ; $i++ )
         
         //echo "The source code of the page is:<br>".htmlspecialchars($ret);
         print_r("<pre>");
+        print($num."<br><br>");
         //print_r($matcha[1]);
         //print_r($matchb[1]);
         //print_r($college["name"]);
