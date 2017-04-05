@@ -24,20 +24,27 @@ preg_match_all('/<p>\| (.*?)<\/p><\/h2>/', $ret, $matchb);
 $college["address"] = $matchb[1];
 
 // find the facilities code block of all colleges
-preg_match_all('/<ul class="facility-icons">(.*?)<\/ul>/s', $ret, $matchc);
+preg_match_all('/<\/p><\/h2>(.*?)<\/ul>/s', $ret, $matchc);
 
 // separate and store the facilities of each individual college 
 for( $i=0 ; $i < count($matchc[1]) ; $i++ )
 {
-    preg_match_all('/<h3>(.*?)<\/h3>/', $matchc[1][$i], $matchca);
-    $college["facilities"][$i] = implode(', ', $matchca[1]);
+    if(preg_match_all('/<h3>(.*?)<\/h3>/', $matchc[1][$i], $matchca))
+    {
+        $college["facilities"][$i] = implode(', ', $matchca[1]);
+    }
+    else
+    {
+        $college["facilities"][$i] = "No facilities available";
+    }
+    
     
 }
 
 
 
 // find the reviews code block of all colleges
-preg_match_all('/<div class="tuple-exam-dtls">(.*?)<p class="clr">/s', $ret, $matchd);
+preg_match_all('/<section class="tpl-curse-dtls">(.*?)<p class="clr">/s', $ret, $matchd);
 
 
 
