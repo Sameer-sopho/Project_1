@@ -80,7 +80,7 @@ for( $i=0 ; $i < count($matchd[1]) ; $i++ )
         //print_r($college["reviews"]);
         //print($matchda);
         //print_r($matchc[1]);
-        //print_r($college);
+        print_r($college);
         //print($temp);
         //echo "<br><br>";
         //print_r($matchc[1]);
