@@ -40,7 +40,7 @@ for( $i=0 ; $i < count($matchc[1]) ; $i++ )
 preg_match_all('/<div class="tuple-exam-dtls">(.*?)<p class="clr">/s', $ret, $matchd);
 
 
-/*
+
 // store the reviews of each individual college
 for( $i=0 ; $i < count($matchd[1]) ; $i++ )
 {
@@ -54,24 +54,6 @@ for( $i=0 ; $i < count($matchd[1]) ; $i++ )
     }
     
 }
-
-*/
-
-/*
-
-if(preg_match_all('/<div class="tuple-exam-dtls">/', $ret, $matchc))
-{
-    $temp = "success";
-}
-else
-{
-    $temp = "failure";
-
-}
-
-*/
-
-
 
 
 
