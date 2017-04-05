@@ -5,7 +5,12 @@
 extract($_GET);
 
 // get the raw html
-$ret = file_get_contents($url);
+if(!($ret = file_get_contents($url)))
+{
+    echo "Couldn't fetch html data.";
+    exit;
+}
+
 
 
 // remove the new lines so that regex doesn't break halfway
@@ -59,7 +64,7 @@ for( $i=0 ; $i < count($matchd[1]) ; $i++ )
     
 }
 
-
+// setting up connection
 $servername = "localhost";
 $username = "sameerjathavedan";
 $password = "3vXt73bGW7mEcGnI";
@@ -72,9 +77,12 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
+// clearing previous entries in table
 $sql = "TRUNCATE TABLE  college;";
 $mysqli->query($sql) or die($mysqli->error);
 
+
+// entering new data into table
 for( $i=0 ; $i < count($college["name"]) ; $i++ )
 {
     $name = $mysqli->escape_string($college["name"][$i]);
@@ -94,9 +102,9 @@ for( $i=0 ; $i < count($college["name"]) ; $i++ )
 
 
 
-
 <html>
     <head>
+        <title>Scraped Colleges</title>
          <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -107,11 +115,13 @@ for( $i=0 ; $i < count($college["name"]) ; $i++ )
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Scraped Data</title>
-        
     </head>
     <body>
-         <table style=" width:100%; border: 1px solid black;  font-size:20px; font-family:Arial;">
+        <div style="text-align: center;">
+        <h1>Scraped Colleges</h1> 
+        </div>
+        <br><br>
+         <table class="table table-striped">
           <tr>
             <th>S.No</th>
             <th>Name</th>
@@ -123,8 +133,8 @@ for( $i=0 ; $i < count($college["name"]) ; $i++ )
           
           for( $i=0 ; $i < count($college["name"]) ; $i++ )
           {
-            echo "<tr>
-            . <td>" . ($i+1) . "</td>" 
+            echo "<tr>"
+            . "<td>" . ($i+1) . "</td>" 
             . "<td>" . $college["name"][$i] . "</td>" 
             . "<td>" . $college["address"][$i] . "</td>" 
             . "<td>" . $college["facilities"][$i] . "</td>"
