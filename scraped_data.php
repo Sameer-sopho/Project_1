@@ -75,7 +75,8 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-
+$sql = "TRUNCATE TABLE  college;";
+$mysqli->query($sql) or die($mysqli->error);
 
 for( $i=0 ; $i < count($college["name"]) ; $i++ )
 {
