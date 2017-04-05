@@ -60,9 +60,6 @@ for( $i=0 ; $i < count($matchd[1]) ; $i++ )
 }
 
 
-
-
-
 $servername = "localhost";
 $username = "sameerjathavedan";
 $password = "3vXt73bGW7mEcGnI";
@@ -90,46 +87,51 @@ for( $i=0 ; $i < count($college["name"]) ; $i++ )
     $mysqli->query($sql) or die($mysqli->error);
 }
 
-
-
-
-
-
-
-
-$num = count($college["name"]);
-
-
-
-
 ?>
+
+
+
+
 
 
 
 <html>
     <head>
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Scraped Data</title>
+        
     </head>
     <body>
-        <?php
-        
-        //echo "The source code of the page is:<br>".htmlspecialchars($ret);
-        print_r("<pre>");
-        print($num."<br><br>");
-        //print_r($matcha[1]);
-        //print_r($matchb[1]);
-        //print_r($college["name"]);
-        //print_r($college["address"]);
-        //print_r($college["facilities"]);
-        //print_r($college["reviews"]);
-        //print($matchda);
-        //print_r($matchc[1]);
-        print_r($college);
-        //print($temp);
-        //echo "<br><br>";
-        //print_r($matchc[1]);
-        //print_r($matchd[1]);
-        
-        ?>
+         <table style=" width:100%; border: 1px solid black;  font-size:20px; font-family:Arial;">
+          <tr>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Facilities</th>
+            <th>Reviews</th>
+          </tr>
+          <?php
+          
+          for( $i=0 ; $i < count($college["name"]) ; $i++ )
+          {
+            echo "<tr>
+            . <td>" . ($i+1) . "</td>" 
+            . "<td>" . $college["name"][$i] . "</td>" 
+            . "<td>" . $college["address"][$i] . "</td>" 
+            . "<td>" . $college["facilities"][$i] . "</td>"
+            . "<td>" . $college["reviews"][$i] . "</td>"
+            . "</tr>";
+          }
+          
+          ?>
     </body>
 </html>
