@@ -34,12 +34,13 @@ for( $i=0 ; $i < count($matchc[1]) ; $i++ )
     
 }
 
-/*
+
 
 // find the reviews code block of all colleges
 preg_match_all('/<div class="tuple-exam-dtls">(.*?)<p class="clr">/s', $ret, $matchd);
 
 
+/*
 // store the reviews of each individual college
 for( $i=0 ; $i < count($matchd[1]) ; $i++ )
 {
